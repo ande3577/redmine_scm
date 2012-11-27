@@ -32,7 +32,7 @@ class BazaarCreator < SCMCreator
 
         def create_repository(path)
             args = [ options['bzr'], options['init'] || 'init-repository' ]
-            append_options(args)
+            args = append_options(args)
             args << path
             system(*args)
         end

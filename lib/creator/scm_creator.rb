@@ -136,6 +136,7 @@ class SCMCreator
                     args << options['options']
                 end
             end
+	    return args
         end
 
     end

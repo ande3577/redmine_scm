@@ -47,7 +47,7 @@ class GitCreator < SCMCreator
 
         def create_repository(path)
             args = [ options['git'], 'init' ]
-            append_options(args)
+            args = append_options(args)
             args << path
             if system(*args)
                 if options['update_server_info']

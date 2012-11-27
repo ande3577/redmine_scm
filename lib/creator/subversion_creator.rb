@@ -55,7 +55,7 @@ class SubversionCreator < SCMCreator
 
         def create_repository(path)
             args = [ options['svnadmin'], 'create', path ]
-            append_options(args)
+            args =  append_options(args)
             system(*args)
         end
 

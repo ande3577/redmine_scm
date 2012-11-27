@@ -28,7 +28,7 @@ class MercurialCreator < SCMCreator
 
         def create_repository(path)
             args = [ options['hg'], 'init' ]
-            append_options(args)
+            args = append_options(args)
             args << path
             system(*args)
         end
