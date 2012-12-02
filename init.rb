@@ -8,6 +8,7 @@ require_dependency 'creator/bazaar_creator'
 
 require_dependency 'scm_config'
 require_dependency 'scm_hook'
+require_dependency 'scm_view_hook'
 
 require_dependency File.expand_path(File.join(File.dirname(__FILE__), 'app/models/repository_observer'))
 

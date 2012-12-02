@@ -41,6 +41,10 @@ class SubversionCreator < SCMCreator
         def external_url(name, regexp = %r{^(?:file|https?|svn(?:\+[a-z]+)?)://})
             super
         end
+        
+        def fetch_url(path)
+          super path.sub("file://", "")
+        end
 
         def repository_name(path)
             base = Redmine::Platform.mswin? ? '/' + options['path'].gsub(%r{\\}, "/") : options['path']

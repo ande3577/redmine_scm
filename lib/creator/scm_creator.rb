@@ -62,6 +62,16 @@ class SCMCreator
         def default_path(identifier)
             path(identifier)
         end
+        
+        def fetch_url(path)
+          if(options['path'] && options['url'])
+            base_path = options['path']
+            if !base_path.end_with?("/")
+              base_path += "/"
+            end
+            fetch_url = path.sub!(base_path, options['url'] + "/")
+          end
+        end
 
         # extracts repository name from path
         def repository_name(path)

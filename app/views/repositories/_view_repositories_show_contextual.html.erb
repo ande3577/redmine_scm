@@ -1,0 +1,11 @@
+
+<% if @repository.created_with_scm %>
+	<% interface = Object.const_get("#{@repository.class.name.demodulize}Creator") %>
+	<% fetch_url = interface.fetch_url @repository.url %>
+	<% if !fetch_url.nil? && !fetch_url.empty? %>
+		<h3><%= l :text_scm_repository_url %></h3>
+		<em><%= fetch_url %></em><p>
+	<% end %>
+
+<% end %>
+
