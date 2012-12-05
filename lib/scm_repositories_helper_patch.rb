@@ -67,7 +67,8 @@ module ScmRepositoriesHelperPatch
                 else # Rails 3.1 and above
                     add = submit_tag(l(:button_create_new_repository), :onclick => "$('#repository_operation').val('add');")
                 end
-                svntags['<br />'] = ' ' + add + '<br />'
+                url_example = l(:text_scm_path_format) + ': ' + 'file://' + ScmConfig['svn']['path'] + '/' + @project.identifier + '.' + l(:text_scm_repository_identifier)
+                svntags['<br />'] = ' ' + add + '<br>' + url_example + '<br />'
                 svntags << hidden_field_tag(:operation, '', :id => 'repository_operation')
                 unless request.post?
                     path = SubversionCreator.access_root_url(SubversionCreator.default_path(@project.identifier))
@@ -201,10 +202,14 @@ module ScmRepositoriesHelperPatch
                 else # Rails 3.1 and above
                     add = submit_tag(l(:button_create_new_repository), :onclick => "$('#repository_operation').val('add');")
                 end
+                url_example = l(:text_scm_path_format) + ': ' + ScmConfig['git']['path'] + '/' + @project.identifier + '/' + l(:text_scm_repository_identifier) 
+                if(ScmConfig['git']['git_ext'])
+                  url_example += '.git'
+                end
                 if gittags.include?('<br />')
-                    gittags['<br />'] = ' ' + add + '<br />'
+                    gittags['<br />'] = ' ' + add + '<br />' + url_example + '<br />'
                 else
-                    gittags['</p>'] = ' ' + add + '</p>'
+                    gittags['</p>'] = ' ' + add + '</p>' + url_example + '</p>'
                 end
                 gittags << hidden_field_tag(:operation, '', :id => 'repository_operation')
                 unless request.post?
