@@ -202,7 +202,7 @@ module ScmRepositoriesHelperPatch
                 else # Rails 3.1 and above
                     add = submit_tag(l(:button_create_new_repository), :onclick => "$('#repository_operation').val('add');")
                 end
-                url_example = l(:text_scm_path_format) + ': ' + ScmConfig['git']['path'] + '/' + @project.identifier + '/' + l(:text_scm_repository_identifier) 
+                url_example = l(:text_scm_path_format) + ': ' + ScmConfig['git']['path'] + '/' + @project.identifier + '.' + l(:text_scm_repository_identifier) 
                 if(ScmConfig['git']['git_ext'])
                   url_example += '.git'
                 end
@@ -216,9 +216,9 @@ module ScmRepositoriesHelperPatch
                     path = GitCreator.access_root_url(GitCreator.default_path(@project.identifier))
                     if GitCreator.repository_exists?(@project.identifier) && @project.respond_to?(:repositories)
                         if(ScmConfig['git']['git_ext'])
-                          path.gsub!(/#{@project.identifier}.git$/, "#{@project.identifier}/#{@project.repositories.select{ |r| r.created_with_scm }.size.to_s}.git")
+                          path.gsub!(/#{@project.identifier}.git$/, "#{@project.identifier}.#{@project.repositories.select{ |r| r.created_with_scm }.size.to_s}.git")
                         else
-                          path.gsub!(/#{@project.identifier}$/, "#{@project.identifier}/#{@project.repositories.select{ |r| r.created_with_scm }.size.to_s}")
+                          path.gsub!(/#{@project.identifier}$/, "#{@project.identifier}.#{@project.repositories.select{ |r| r.created_with_scm }.size.to_s}")
                         end
                     end
                     if defined? observe_field # Rails 3.0 and below

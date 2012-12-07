@@ -82,7 +82,7 @@ class SCMCreator
 
         # compares repository names (was created for multiple repositories support)
         def belongs_to_project?(name, identifier)
-          name =~ %r{^#{Regexp.escape(identifier)}([\.\/\\].+)?$}
+            name =~ %r{^#{Regexp.escape(identifier)}(\..+)?$}
         end
 
         # returns format of repository path which is displayed in the form as a default value
