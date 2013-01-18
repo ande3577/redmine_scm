@@ -25,7 +25,7 @@ module ScmRepositoriesControllerPatch
     module InstanceMethods
 
         def delete_scm
-            if @repository.created_with_scm && ScmConfig['deny_delete']
+            if @repository.created_with_scm && (ScmConfig['deny_delete'] || !User.current.allowed_to?(:delete_local_repository, @project) ) 
                 Rails.logger.info "Deletion denied: #{@repository.root_url}"
                 render_403
             end

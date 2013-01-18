@@ -28,7 +28,7 @@
         <%= link_to(l(:button_delete), repository_path(repository),
             :confirm => l(:text_are_you_sure),
             :method  => :delete,
-            :class   => 'icon icon-del') unless repository.created_with_scm && ScmConfig['deny_delete'] %>
+            :class   => 'icon icon-del') unless repository.created_with_scm && ( ScmConfig['deny_delete']  || !User.current.allowed_to?(:delete_local_repository, @project) ) %>
       <% end %>
       </td>
     </tr>

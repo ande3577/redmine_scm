@@ -29,6 +29,10 @@ Rails.configuration.to_prepare do
 end
 
 Redmine::Plugin.register :redmine_scm do
+    project_module :repository do
+      permission :delete_local_repository, :repository => :delete_local
+    end
+  
     name 'SCM Creator'
     author 'Andriy Lesyuk'
     author_url 'http://www.andriylesyuk.com/'
