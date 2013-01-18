@@ -10,6 +10,7 @@ module ScmRepositoriesControllerPatch
             before_filter :delete_scm, :only => :destroy
 
             alias_method_chain :destroy, :confirmation
+            alias_method_chain :show, :scm_url
 
             if Project.method_defined?(:repositories)
                 alias_method_chain :create, :add
@@ -17,6 +18,14 @@ module ScmRepositoriesControllerPatch
                 alias_method_chain :edit, :add
             end
         end
+    end
+    
+    def show_with_scm_url
+      if @repository.created_with_scm and @repository.entries(@path, @rev).blank?
+        render :action => '_view_repositories_show_contextual'
+      else
+        show_without_scm_url
+      end
     end
 
     module ClassMethods

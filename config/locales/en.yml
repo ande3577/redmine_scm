@@ -13,6 +13,7 @@ en:
   text_scm_repository_url: Repository Fetch URL
   text_scm_path_format: Repository url format 
   text_scm_repository_identifier: repository_id 
+  text_scm_repository_empty: The selected repository is empty. 
   permission_delete_local_repository: Delete local repository
 
   activerecord:

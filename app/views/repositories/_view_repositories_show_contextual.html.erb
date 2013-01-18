@@ -6,6 +6,9 @@
 		<h3><%= l :text_scm_repository_url %></h3>
 		<em><%= fetch_url %></em><p>
 	<% end %>
-
+	
+	<% if @repository.entries(@path, @rev).blank? %>
+		<em class="info error"><%= l :text_scm_repository_empty %></em>
+	<% end %>
 <% end %>
 
