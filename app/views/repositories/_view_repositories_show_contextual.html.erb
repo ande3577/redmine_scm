@@ -7,7 +7,7 @@
 		<em><%= fetch_url %></em><p>
 	<% end %>
 	
-	<% if @repository.entries(@path, @rev).blank? %>
+	<% if @entry.nil? and @changeset.nil? and @changesets.nil? %>
 		<em class="info error"><%= l :text_scm_repository_empty %></em>
 	<% end %>
 <% end %>
