@@ -214,17 +214,29 @@ module ScmRepositoriesHelperPatch
                 gittags << hidden_field_tag(:operation, '', :id => 'repository_operation')
                 unless request.post?
                     path = GitCreator.access_root_url(GitCreator.default_path(@project.identifier))
-                    if GitCreator.repository_exists?(@project.identifier) && @project.respond_to?(:repositories)
-                        if(ScmConfig['git']['git_ext'])
-                          path.gsub!(/#{@project.identifier}.git$/, "#{@project.identifier}.#{@project.repositories.select{ |r| r.created_with_scm }.size.to_s}.git")
-                        else
-                          path.gsub!(/#{@project.identifier}$/, "#{@project.identifier}.#{@project.repositories.select{ |r| r.created_with_scm }.size.to_s}")
-                        end
-                    end
                     if defined? observe_field # Rails 3.0 and below
                         gittags << javascript_tag("$('repository_url').value = '#{escape_javascript(path)}';")
                     else # Rails 3.1 and above
+                        gittags << hidden_field_tag('repository_url_changed', '')
                         gittags << javascript_tag("$('#repository_url').val('#{escape_javascript(path)}');")
+                        gittags << javascript_tag("$('#repository_url').change(function() {
+                            window.alert('url changed');
+                            $('#repository_url_changed').val('1');
+                          })");
+                        gittags << javascript_tag("$('#repository_identifier').change(function() {
+                          if(!$('#repository_url_changed').val())
+                          {
+                            if($('#repository_identifier').val())
+                            {
+                              $('#repository_url').val(\"" + GitCreator.path(@project.identifier) + ".\" + $('#repository_identifier').val()
+                                " + ((ScmConfig['git']['git_ext']) ? " + '.git'" : '' ) + ");
+                            }
+                            else
+                            {
+                              $('#repository_url').val('" + path + "');
+                            }
+                          }
+                        });")
                     end
                 end
 
