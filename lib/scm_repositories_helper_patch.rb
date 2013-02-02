@@ -24,8 +24,11 @@ module ScmRepositoriesHelperPatch
             reptags = repository_field_tags_without_add(form, repository)
 
             button_disabled = repository.class.respond_to?(:scm_available) ? !repository.class.scm_available : false
+            url_disabled = false
 
             if ScmConfig['only_creator']
+                url_disabled = ScmConfig['deny_url_edit']
+              
                 begin
                     interface = Object.const_get("#{repository.class.name.demodulize}Creator")
                 rescue NameError
@@ -45,8 +48,12 @@ module ScmRepositoriesHelperPatch
             else # Rails 3.1 and above
                 if request.xhr?
                     reptags << javascript_tag("$('#repository_save')." + (button_disabled ? "attr('disabled','disabled')" : "removeAttr('enable')") + ";")
+                    reptags << javascript_tag("$('#repository_url')." + (url_disabled ? "attr('disabled','disabled')" : "removeAttr('enable')") + ";")
                 else
-                    reptags << javascript_tag("$(document).ready(function() { $('#repository_save')." + (button_disabled ? "attr('disabled','disabled')" : "removeAttr('enable')") + "; });")
+                    reptags << javascript_tag("$(document).ready(function() { 
+                      $('#repository_save')." + (button_disabled ? "attr('disabled','disabled')" : "removeAttr('enable')") + ";
+                      $('#repository_url')." + (url_disabled ? "attr('disabled','disabled')" : "removeAttr('enable')") + ";
+                      });")
                 end
             end
 
