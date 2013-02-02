@@ -1,6 +1,6 @@
 <h2><%= l(:label_confirmation) %></h2>
 <div class="warning">
-  <p><%= l(:text_scm_repository_created_by_scm) %></p>
+  <p><%= l(:text_scm_repository_created_by_scm, :repository_id => @repository.identifier) %></p>
   <p><%= l(:text_scm_repository_destroy_confirmation) %></p>
   <p>
     <% if @project.respond_to?(:repositories)

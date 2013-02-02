@@ -8,7 +8,7 @@ en:
   text_cannot_be_changed_later: Cannot be changed later.
   text_cannot_be_used_redmine_auth: Redmine based authentication can not be used with this repository name.
   text_scm_creator_not_configured_warning: SCM Creator installed but not configured.
-  text_scm_repository_created_by_scm: The repository on the file system was created especially for Redmine. By deleting its Redmine entry you may make it useless.
+  text_scm_repository_created_by_scm: The repository on the file system "%{repository_id}" was created especially for Redmine. By deleting its Redmine entry you may make it useless.
   text_scm_repository_destroy_confirmation: Do you want to remove the repository from the file system as well?
   text_scm_repository_url: Repository Fetch URL
   text_scm_path_format: Repository url format 
