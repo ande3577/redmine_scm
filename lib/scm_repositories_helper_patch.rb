@@ -227,7 +227,6 @@ module ScmRepositoriesHelperPatch
                         gittags << hidden_field_tag('repository_url_changed', '')
                         gittags << javascript_tag("$('#repository_url').val('#{escape_javascript(path)}');")
                         gittags << javascript_tag("$('#repository_url').change(function() {
-                            window.alert('url changed');
                             $('#repository_url_changed').val('1');
                           })");
                         gittags << javascript_tag("$('#repository_identifier').change(function() {
