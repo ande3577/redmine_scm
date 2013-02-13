@@ -8,7 +8,38 @@
 	<% end %>
 	
 	<% if @entry.nil? and @changeset.nil? and @changesets.nil? %>
-		<em class="info error"><%= l :text_scm_repository_empty %></em>
+
+<% if !@repository.nil? and @repository.scm_name == 'Git' %>
+
+<em class="info error"><%= l :text_scm_repository_empty_with_instructions %></em>
+
+<%# This is used to display basic git setup instructions, like on github... %>
+<%# Taken from redmine_git_hosting by ericpaulbishop: https://github.com/ericpaulbishop/redmine_git_hosting %>
+
+<div class="box">				
+<h2>Git Setup:</h2>
+<pre>  <a href="http://git-scm.com/download" target="_blank">Download and Install Git</a>
+  git config --global user.name "<%= User.current.name(:firstname_lastname) %>"
+  git config --global user.email <%= User.current.mail %></pre>
+<h2>Repository Setup:</h2>
+<pre>  mkdir <%= @project.identifier %>
+  cd <%= @project.identifier %>
+  git init
+  touch readme.txt
+  git add readme.txt
+  git commit -m 'Initializing <%= @project %> repository'
+  git remote add origin <%= fetch_url %>
+  git push -u origin master</pre>
+<h2>Existing Git Repo?</h2>
+<pre>  cd existing_git_repo
+  git remote add origin <%= fetch_url %>
+  git push -u origin master</pre>
+</div>
+
+<% else %>
+<em class="info error"><%= l :text_scm_repository_empty %></em>
+<% end %>		
+		
 	<% end %>
 <% end %>
 

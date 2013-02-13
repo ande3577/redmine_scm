@@ -14,6 +14,7 @@ en:
   text_scm_path_format: Repository url format 
   text_scm_repository_identifier: repository_id 
   text_scm_repository_empty: The selected repository is empty. 
+  text_scm_repository_empty_with_instructions: he selected repository is empty.  Follow the instructions below to get started.
   permission_delete_local_repository: Delete local repository
 
   activerecord:
