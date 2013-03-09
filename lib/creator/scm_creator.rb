@@ -40,13 +40,15 @@ class SCMCreator
         end
 
         # returns local path
-        def path(identifier)
+        def path(identifier, repository_id = nil)
             if Redmine::Platform.mswin?
                 # Assuming path is in Windows style (contains \'s)
-                "#{options['path']}\\#{identifier}"
+                p = "#{options['path']}\\#{identifier}"
             else
-                "#{options['path']}/#{identifier}"
+                p = "#{options['path']}/#{identifier}"
             end
+            p += "." + repository_id unless repository_id.nil? or repository_id.empty?
+            p
         end
 
         # returns url which can used to access the repository externally
@@ -59,8 +61,8 @@ class SCMCreator
         end
 
         # constructs default path using project identifier
-        def default_path(identifier)
-            path(identifier)
+        def default_path(identifier, repository_id = nil)
+            path(identifier, repository_id)
         end
         
         def fetch_url(path)
@@ -86,9 +88,9 @@ class SCMCreator
         end
 
         # returns format of repository path which is displayed in the form as a default value
-        def repository_format
+        def repository_format(label)
             path = Redmine::Platform.mswin? ? options['path'].gsub(%r{\\}, "/") : options['path']
-            "#{path}/<#{l(:label_repository_format)}>/"
+            "#{path}/<#{label}>/"
         end
 
         # checks if repository already exists (was created for Git which can add .git extension)

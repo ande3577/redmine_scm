@@ -254,7 +254,7 @@ module ScmRepositoriesControllerPatch
                     flash[:warning] = l(:text_cannot_be_used_redmine_auth)
                 end
             else
-                repository.errors.add(:url, :should_be_of_format_local, :format => interface.repository_format)
+                repository.errors.add(:url, :should_be_of_format_local, :repository_format => interface.default_path(@project.identifier, params[:repository][:identifier]))
             end
 
             # Otherwise input field will be disabled

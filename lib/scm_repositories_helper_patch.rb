@@ -209,10 +209,7 @@ module ScmRepositoriesHelperPatch
                 else # Rails 3.1 and above
                     add = submit_tag(l(:button_create_new_repository), :onclick => "$('#repository_operation').val('add');")
                 end
-                url_example = l(:text_scm_path_format) + ': ' + ScmConfig['git']['path'] + '/' + @project.identifier + '.' + l(:text_scm_repository_identifier) 
-                if(ScmConfig['git']['git_ext'])
-                  url_example += '.git'
-                end
+                url_example = l(:text_scm_path_format) + ': ' + GitCreator.default_path(@project.identifier, l(:text_scm_repository_identifier)) 
                 if gittags.include?('<br />')
                     gittags['<br />'] = ' ' + add + '<br />' + url_example + '<br />'
                 else

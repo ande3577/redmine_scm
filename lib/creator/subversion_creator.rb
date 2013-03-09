@@ -52,9 +52,9 @@ class SubversionCreator < SCMCreator
             matches ? matches[1] : nil
         end
 
-        def repository_format
+        def repository_format(label)
             path = Redmine::Platform.mswin? ? '/' + options['path'].gsub(%r{\\}, "/") : options['path']
-            "file://#{path}/<#{l(:label_repository_format)}>/"
+            "file://#{path}/<#{label}>/"
         end
 
         def create_repository(path)

@@ -26,11 +26,11 @@ class GitCreator < SCMCreator
             super
         end
 
-        def default_path(identifier)
+        def default_path(identifier, repository_id = nil)
             if options['git_ext']
-                path(identifier) + '.git'
+                path(identifier, repository_id) + '.git'
             else
-                path(identifier)
+                path(identifier, repository_id)
             end
         end
 
