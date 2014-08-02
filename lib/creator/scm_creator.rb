@@ -66,7 +66,7 @@ class SCMCreator
         end
         
         def fetch_url(path)
-          if(options['path'] && options['url'])
+          if(options && options['path'] && options['url'])
             base_path = options['path']
             if !base_path.end_with?("/")
               base_path += "/"
